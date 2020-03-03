@@ -6,12 +6,12 @@
 
 - 硬件
 
-| 需求项     | 建议配置       |
-| ------    | ----------    |
-| Cores     | \>=4        |
-| CPU       | \>=2.4 GHz   |
-| RAM       | \>=8GB       |
-| DISK      | \>=500G      |
+| 需求项 | 建议配置   |
+| ------ | ---------- |
+| Cores  | \>=4       |
+| CPU    | \>=2.4 GHz |
+| RAM    | \>=8GB     |
+| DISK   | \>=500G    |
 
 > 注意：
 >
@@ -23,10 +23,10 @@ PlatON节点目前完整测试过 Ubunt18.04 版本的操作系统，建议使�
 
 - 网络
 
-| 端口      | 服务名称       |
-| ------    | ----------    |
-| 443       | https         |
-| 16789     | p2p           |
+| 端口  | 服务名称 |
+| ----- | -------- |
+| 443   | https    |
+| 16789 | p2p      |
 
 PlatON 的网络带宽要求大于等于20Mbps，同时云主机需要开放以上服务端口的外部访问权限。
 
@@ -214,11 +214,11 @@ PlatON 是实行民主治理的区块链项目，验证节点由所有 Energon �
 - 每个 Staking 周期期初，总票数（包括节点自质押和其他人的委托）排名前 101 名的节点，成为当前Staking周期的备选节点
 - 每个共识周期（250个区块一轮）的第230个区块，从当前 Staking 周期的101名备选节点中, 按总得票数权重随机选出 25 名验证节点来生产区块
 
-### 2.2  安装前准备
+### 2.2  安装MTool
 
 **MTool支持Windows和Ubuntu，用户可根据自己的资源进行选择，下面进行分别说明：**
 
-### Windows下安装MTool
+#### 2.2.1 Windows下安装MTool
 
 步骤如下：
 
@@ -230,41 +230,41 @@ PlatON 是实行民主治理的区块链项目，验证节点由所有 Energon �
 
   双击mtool-setup.exe进行安装。默认安装目录为 C:\tools，建议不要更改此安装目录。弹出界面显示**Completing the mtool Setup Wizard**信息表示安装成功，点击**Finish**即可。
 
-### Ubuntu下安装MTool
+#### 2.2.2 Ubuntu下安装MTool
 
 步骤如下：
 
 **step1.** 下载mtool工具包
 
-``` bash
+```bash
 wget https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/mtool/0.8.0.0/mtool-client.zip
 ```
 
 或者
 
-``` bash
+```bash
 wget http://47.91.153.183/mtool/0.8.0.0/mtool-client.zip
 ```
 
 **step2.** 解压mtool工具包
 
-``` bash
+```bash
 unzip mtool-client.zip && cd mtool-client
 ```
 
 **step3.** 下载脚本
 
->[!NOTE|style:flat|label:注意]
+> 注意
 >
->脚本下载到<font color=red>mtool-client</font> 目录下，否则脚本无法找到新版本mtool的路径。
+> 脚本下载到<font color=red>mtool-client</font> 目录下，否则脚本无法找到新版本mtool的路径。
 
-``` bash
+```bash
 wget https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/opensource/scripts/mtool_install.sh
 ```
 
 或者
 
-``` bash
+```bash
 wget http://47.91.153.183/opensource/scripts/mtool_install.sh
 ```
 
@@ -274,43 +274,35 @@ wget http://47.91.153.183/opensource/scripts/mtool_install.sh
 chmod +x mtool_install.sh && ./mtool_install.sh
 ```
 
-> [!NOTE|style:flat|label:注意]
+> 注意
 >
 > - 提示 <font color=red>Install mtool succeed.</font> 时，表示 MTool 安装成功，未安装成功时，请通过我们的官方客服联系方式反馈具体问题。
 > - 安装完成之后，需要<font color=red>重启终端</font>，让新添加的环境变量生效。
 
+### 2.3 配置在线MTool
 
-
-### 2.4 创建钱包
-
-PlatON中，参与验证节点进行出块要创建两个钱包。
-
-其中Windows和Ubuntu下MTool的命令及目录有所区别：
-
-- MTool命令
-
-  - Windows：mtool-client.bat
-  - Ubuntu：mtool-client
+Windows和Ubuntu下MTool目录使用环境变量有所区别：
 
 - MTool目录
+  - Windows：`%MTOOLDIR%`
+  - Ubuntu：`$MTOOLDIR`
 
-  - Windows：%MTOOLDIR%
-
-  - Ubuntu：$MTOOLDIR
-
->  说明：
+> 说明：
 >
->   - MTool命令用变量$mtool-client代替；
->   - MTool目录用变量$MTOOLDIR代替；
+> - MTool目录用变量`$MTOOLDIR`代替；
 >
->  **`用户根据自己安装的系统进行选择。`**
+> **`用户根据自己安装的系统进行选择。`**
+
+#### 2.3.1 创建钱包
+
+PlatON中，参与验证节点进行出块要创建两个钱包。如果已经有钱包，可通过将钱包文件拷贝到`$MTOOLDIR/keystore`目录下，跳过本步骤。
 
 - 质押钱包
   质押钱包用于质押 token，质押成功后才能成为备选节点候选人。
-  打开终端，运行以下命令创建质押钱包：
-  
-  ``` shell
-  $mtool-client account new staking
+  运行以下命令创建质押钱包：
+
+  ```shell
+  mtool-client account new staking
   ```
 
   输入一次密码，再输入一次确认密码，即可创建钱包文件，创建成功后会在目录`$MTOOLDIR/keystore`下生成质押钱包文件`staking.json`。
@@ -318,50 +310,67 @@ PlatON中，参与验证节点进行出块要创建两个钱包。
 - 收益钱包
   用于收取区块奖励和Staking奖励，Staking奖励统一发放给验证节点，由验证节点自行分配。
   运行以下命令创建收益钱包：
-  
-  ``` shell
-  $mtool-client account new reward
+
+  ```shell
+  mtool-client account new reward
   ```
 
   输入一次密码，再输入一次确认密码，即可创建钱包文件，创建成功后会在目录`$MTOOLDIR/keystore`下生成质押钱包文件`reward.json`。
 
-### 2.5 配置验证节点信息
+#### 2.3.2 配置验证节点信息
 
-根据用户在Windows或Ubuntu上安装的MTool，选择对应系统上的验证节点信息配置：
+根据用户在Windows或Ubuntu上安装的MTool，选择对应系统上的验证节点信息配置。
 
-#### 2.5.1  Windows下配置验证节点信息
+- Windows下配置验证节点信息
 
 操作步骤如下：
 
-**step1.** 浏览器复制链接 <https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/opensource/scripts/validator_conf.bat> 或者 <http://47.91.153.183/opensource/scripts/validator_conf.bat> 下载脚本
+**step1.**  windows键 + x ，点击 Windows PowerShell(管理员)(A)，弹出窗口选择是，调出管理员：powershell 窗口，复制以下2条命令执行。
 
-**step2.** 鼠标右键点击 validator_conf.bat， 选择以管理员身份运行
+```bash
+$env:chocolateyUseWindowsCompression = 'true'
+Set-ExecutionPolicy -ExecutionPolicy Bypass
+```
+
+提示：
+
+```plain
+执行策略更改
+执行策略可帮助你防止执行不信任的脚本。更改执行策略可能会产生安全风险，如 https:/go.microsoft.com/fwlink/?LinkID=135170 中的 about_Execution_Policies 帮助主题所述。是否要更改执行策略?
+[Y] 是(Y)  [A] 全是(A)  [N] 否(N)  [L] 全否(L)  [S] 暂停(S)  [?] 帮助 (默认值为“N”):
+```
+
+请输入：y，并按回车键结束。
+
+**step2.** 浏览器复制链接 <https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/opensource/scripts/validator_conf.bat> 或者 <http://47.91.153.183/opensource/scripts/validator_conf.bat> 下载脚本。
+
+**step3.** 鼠标右键点击 validator_conf.bat， 选择以管理员身份运行:
 
 > 注意
 >
-> - 提示 `Please enter the platon node IP address:` 时，请输入 PlatON 节点服务器 ip 地址。
-> - 提示 `Please enter the platon chain id:` 时，请输入链ID。
-> - 提示 `Enter your name:` 时，请输入配置 nginx 时输入的用户名。
-> - 提示 `Enter your password:` 时，请输入配置 nginx 时输入的密码。
-> - 提示 `Enter your platon node name:` 时，请输入 PlatON 节点的名称。
-> - 提示 `Enter your platon node description:` 时，请输入 PlatON 节点描述。
-> - 提示 `validator conf success` 时，表示脚本执行成功，未执行成功时，请通过我们的官方客户联系方式反馈具体问题。
-> - 提示 `请按任意键继续. . .` 时，请输入回车键关闭当前 cmd 窗口。
-> - 请到 `C:/tools/mtool/current/validator` 目录下，查看 validator_config.json 内容，是否有异常。
+> - 提示 <font color=red> Please enter the platon node IP address: </font>时，请输入 PlatON 节点服务器 ip 地址。
+> - 提示 <font color=red> Please enter the platon chain id: </font>时，请输入链ID，根据节点所连网络是主网还是测试网选择输入(测试网:101)。
+> - 提示 <font color=red> Please enter the delegatedRewardRate(0~10000):</font>时，请输入比例分红，范围从0到10000，单位(万分比)，如输入5000，表示分红比例为50%。
+> - 提示 <font color=red> Enter your name: </font> 时，请输入配置 PlatON节点 nginx 时输入的用户名。
+> - 提示 <font color=red> Enter your password: </font>时，请输入配置 PlatON节点 nginx 时输入的密码。
+> - 提示<font color=red> Enter your platon node name:</font>时，请输入 PlatON 节点的名称。
+> - 提示<font color=red> Enter your platon node description:</font>时，请输入 PlatON 节点描述。
+> - 提示<font color=red> validator conf success</font>时，表示脚本执行成功，未执行成功时，请通过我们的官方客服联系方式反馈具体问题。
+> - 提示<font color=red> 请按任意键继续. . .</font> 时，请输入回车键关闭当前 cmd 窗口。
 
-#### 2.5.2  Ubuntu下配置验证节点信息
+- Ubuntu下配置验证节点信息
 
 操作步骤如下：
 
 **step1.** 下载脚本：
 
-``` bash
+```bash
 wget https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/opensource/scripts/validator_conf.sh
 ```
 
 或者
 
-``` bash
+```bash
 wget http://47.91.153.183/opensource/scripts/validator_conf.sh
 ```
 
@@ -373,15 +382,58 @@ chmod +x validator_conf.sh && ./validator_conf.sh
 
 > 注意
 >
-> - 提示 `Please enter the platon node IP address:` 时，请输入 PlatON 节点服务器 ip 地址。
-> - 提示 `Please enter the platon chain id:` 时，请输入链ID。
-> - 提示 `Enter your name:` 时，请输入配置 nginx 时输入的用户名。
-> - 提示 `Enter your password:` 时，请输入配置 nginx 时输入的密码。
-> - 提示 `Enter your platon node name:` 时，请输入 PlatON 节点的名称。
-> - 提示 `Enter your platon node description:` 时，请输入 PlatON 节点描述。
-> - 提示 `validator conf success` 并最后打印出的validator_config.json内容正常时，表示脚本执行成功，未执行成功时，请通过我们的官方客户联系方式反馈具体问题。
+> - 提示 <font color=red> Please enter the platon node IP address: </font>时，请输入 PlatON 节点服务器 ip 地址。
+> - 提示 <font color=red> Please enter the platon chain id: </font>时，请输入链ID，根据所连网络是主网还是测试网选择输入(测试网:101)。
+> - 提示 <font color=red> Please enter the delegatedRewardRate(0~10000):</font>时，请输入比例分红，范围从0到10000，单位(万分比)，如输入5000，表示分红比例为50%。
+> - 提示 <font color=red> Enter your name: </font> 时，请输入配置 PlatON节点 nginx 时输入的用户名。
+> - 提示 <font color=red> Enter your password: </font>时，请输入配置 PlatON节点 nginx 时输入的密码。
+> - 提示<font color=red> Enter your platon node name:</font>时，请输入 PlatON 节点的名称。
+> - 提示<font color=red> Enter your platon node description:</font>时，请输入 PlatON 节点描述。
+> - 提示<font color=red> validator conf success</font>，并最后打印出的validator_config.json内容正常时，表示脚本执行成功，未执行成功时，请通过我们的官方客服联系方式反馈具体问题。
 
-### 2.6 申请质押资金
+- 验证节点信息配置文件说明
+
+完成配置验证节点信息后，会在MTool的安装目录的validator子目录下，生成验证节点信息文件validator_config.json，文件内容如下：
+
+```json
+{
+  "chainId": "101",
+  "delegatedRewardRate": "5000",
+  "nodePublicKey": "79ca603ef75d5954ec270802fa4e7b9bf045842bb7f3e95b849173f61d8a7cfef82b8687abef67f29645e068ff371da514f32b009b05f48062daa84f0b58ab6d",
+  "blsPubKey": "a2e1c2e60eb8bb2af05fff4d07c8fce7c408fbe944be1a58194d9e9c9078cb7bb55b63311c8af107453ac182eef22a04cb9ff28cc3367f1e8459f8dcbe9f5c965a6f377f9ff9bb39a78e4e04fd27876137bb0a9aa4066d0277464f018e989e94",
+  "benefitAddress": "0x32bec384344c2dc1ea794a4e149c1b74dd8467ef",
+  "nodeAddress": "https://test:test@domain3",
+  "nodePort": "16789",
+  "nodeRpcPort": "443",
+  "nodeName": "water-node",
+  "details": "this is water-node",
+  "externalId": "MyKeyBaseId",
+  "webSite": "http://www.mycompany.com",
+  "certificate": "C:/tools/mtool/current/ca.crt"
+}
+```
+
+> 参数说明] 
+>
+> - chainId: 贝莱世界的链为101。
+> - delegatedRewardRate: 用来设置给委托人分红的比例。
+> - nodePublicKey: 节点ID，可通过节点数据目录data下的nodeid文件查看。
+> - blsPubKey: BLS公钥，可通过节点数据目录data下的blspub文件查看。
+> - benefitAddress: 收益钱包地址。
+> - nodeAddress: 节点地址，分使用Nginx和不使用Nginx两种情况:
+>   - 如果使用Nginx，需要用**https**协议，格式为：`https://test:test@domain3`。
+>   - 如果不使用Nginx，需要用**http**协议，如果MTool和节点在同一台机器或同一个局域网内，可以使用内网IP，否则使用公网IP，格式为：`http://18.238.183.12`。
+> - nodePort: 节点P2P端口，默认为16789。
+> - nodeRpcPort: 分使用Nginx和不使用Nginx两种情况:
+>   - 如果使用了Nginx，端口默认为443。
+>   - 如果不使用Nginx，端口默认为6789。
+> - nodeName: 节点名称。
+> - details: 节点描述信息。
+> - externalId: 对应为浏览器显示的头像，可在[keybase.io](https://keybase.io)官网进行注册，对应的值为：注册账户，生成16位的公钥 。
+> - webSite: 公司网址。
+> - certificate: ca证书地址，如果不使用Nginx反向代理，可删除此参数。
+
+### 2.4 申请质押资金
 
 质押资金 LAT 要向 PlatON 官方申请，请发送邮件到 PlatON 官方邮箱 <support@platon.network> ，格式如下：
 
@@ -403,7 +455,7 @@ chmod +x validator_conf.sh && ./validator_conf.sh
 
 申请提交之后，请耐心等待，可在 PlatON 官方区块链浏览器 [PlatScan](https://platscan.platon.network) 主页面搜索框输入质押账户地址，确认官方发放的 token 是否已到账。
 
-### 2.7 验证节点质押
+### 2.5 验证节点质押
 
 利用节点工具 MTool 执行节点质押与委托等操作，对于有能力的开发者，可以在 Java SDK 和 Javascript SDK 基础上面开发自己的节点工具，SDK请参考文档。
 
@@ -427,7 +479,7 @@ $mtool-client staking --amount 1000000 --keystore $MTOOLDIR/keystore/staking.jso
 > - 提示 `please input keystore password:` 时，输入质押钱包的密码。
 > - 提示 `operation finished` 并且提示 `SUCCESS` 表明质押成功。
 
-### 2.8 验证节点确认
+### 2.6 验证节点确认
 
 完成质押操作后，可在 PlatON 官方区块链浏览器 [PlatScan](https://platscan.platon.network) 上点击主页上方验证节点列表，查看所有验证节点，或者在输入框输入节点名称查询节点具体信息，查看是否成为验证节点。
 
