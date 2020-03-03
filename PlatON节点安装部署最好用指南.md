@@ -89,7 +89,7 @@ git clone https://github.com/PlatONnetwork/PlatON-Go.git --recursive
 **step3.** 切到指定tag（实际需从公告获取）：
 
 ```bash
-git checkout -b $tag_name
+git checkout -b release-0.9.0 
 ```
 
 >其中$tag_name为公告发布的tag名称。
@@ -147,7 +147,7 @@ chmod +x platon_setup.sh && ./platon_setup.sh --scc --testnet
 通过`http`方式进入`platon`控制台
 
 ```
-./platon attach http://localhost:6789
+platon attach http://localhost:6789
 ```
 
 ##### 查看节点的peers
@@ -219,26 +219,30 @@ PlatON 是实行民主治理的区块链项目，验证节点由所有 Energon �
 **MTool支持Windows和Ubuntu，用户可根据自己的资源进行选择，下面进行分别说明：**
 
 #### 2.2.1  Windows下安装MTool前准备
+ 下载MTool安装包
 
-360 安全卫士，腾讯电脑管家等杀毒软件会将工具文件误判为病毒文件进而删除，操作前建议关闭这些杀毒软件。
+官方提供的下载地址有2个：
 
-windows键 + x ，点击 Windows PowerShell(管理员)(A)，弹出窗口选择是，调出管理员：powershell 窗口，执行 `mtool-client.bat --version` 命令。
+1、https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/mtool/mtool-setup/0.8.0.0/mtool-setup.exe
 
-执行结果显示`无法将“mtool-client.bat”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。`，表示没有安装旧版本不需要执行下面操作。
+2、 http://47.91.153.183/mtool/mtool-setup/0.8.0.0/mtool-setup.exe 
 
-执行结果显示版本号，时间戳等信息表示安装了旧版本，此时需要备份重要信息，然后再手工卸载旧版本，操作步骤：
+我测试均能下载成功。第一个适合海外用户或者科学上网用户，第二个适合国内用户，请大家谨慎选择。
 
-**step1.** 备份目录 `C:/tools/mtool/current/keystore` 下的所有文件到 D 盘或其他非 `C:/tools` 的目录下。安装完新版本之后需要将备份文件拷贝回 `C:/tools/mtool/current/keystore` 目录下。
 
-**step2.** 备份目录 `C:/tools/mtool/current/validator` 下的所有文件到 D 盘或其他非 `C:/tools` 的目录下。安装完新版本之后需要将备份文件拷贝回 `C:/tools/mtool/current/validator` 目录下。
 
-**step3.**  在前面调出的 powershell 窗口中执行以下命令卸载 mtool 相关的旧版本工具软件。
+ 安装MTool
 
-执行 `choco list --local-only` 命令， 获取包含 mtool 关键字的相关工具，如：`platon_mtool_other 0.7.3`, `platon_mtool_all 0.7.3`, `mtool 0.7.3` 等。
+完成下载后双击mtool-setup.exe进行安装。
 
-执行 `choco uninstall platon_mtool_other 0.7.3`， `choco uninstall platon_mtool_all 0.7.3` 等命令，逐个卸载旧的相关工具。
+默认安装目录为 C:\tools，**建议不要更改此安装目录**。
 
-**step4.** 删除 `C:/tools/mtool`, `C:/tools/platon_mtool_other` 等 `C:/tools` 下包含 mtool 关键字的目录。
+弹出界面显示**Completing the mtool Setup Wizard**信息表示安装成功，点击**Finish**即可。
+
+
+
+官方文档说要配置%MTOOLDIR%这个环境变量，我没有配，依然不影响使用，应该是安装程序默认进行了设置。
+
 
 #### 2.2.2  Ubuntu下安装MTool前准备
 
