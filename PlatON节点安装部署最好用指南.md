@@ -218,126 +218,45 @@ PlatON 是实行民主治理的区块链项目，验证节点由所有 Energon �
 
 **MTool支持Windows和Ubuntu，用户可根据自己的资源进行选择，下面进行分别说明：**
 
-#### 2.2.1  Windows下安装MTool前准备
- 下载MTool安装包
-
-官方提供的下载地址有2个：
-
-1、https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/mtool/mtool-setup/0.8.0.0/mtool-setup.exe
-
-2、 http://47.91.153.183/mtool/mtool-setup/0.8.0.0/mtool-setup.exe 
-
-我测试均能下载成功。第一个适合海外用户或者科学上网用户，第二个适合国内用户，请大家谨慎选择。
-
-
-
- 安装MTool
-
-完成下载后双击mtool-setup.exe进行安装。
-
-默认安装目录为 C:\tools，**建议不要更改此安装目录**。
-
-弹出界面显示**Completing the mtool Setup Wizard**信息表示安装成功，点击**Finish**即可。
-
-
-
-官方文档说要配置%MTOOLDIR%这个环境变量，我没有配，依然不影响使用，应该是安装程序默认进行了设置。
-
-
-#### 2.2.2  Ubuntu下安装MTool前准备
-
-执行命令：
-
-```bash
-mtool-client --version
-```
-
-执行结果显示`mtool-client: command not found`，表示没有安装旧版本不需要执行下面操作。
-
-执行结果显示版本号，时间戳等信息表示安装了旧版本，此时需要备份重要信息，操作步骤：
-
-**step1.** 执行以下命令，获取旧版本mtool的工作目录：
-
-```bash
-which mtool-client | xargs ls -l | awk -F'->' '{print$2}' | awk -F'/bin/mtool-client' '{print$1}'
-```
-
-返回旧版本的mtool的工作目录`$old_mtool`；新版本的mtool的工作目录假设为`$new_mtool`：
-
-**step2.** 备份`$old_mtool/keystore`目录下的所有文件备份到其他地方，安装完新版本之后需要将备份文件拷贝回 `$new_mtool/keystore`目录下。
-
-**step3.** 备份`$old_mtool/validator`目录下的所有文件备份到其他地方，安装完新版本之后需要将备份文件拷贝回 `$new_mtool/validator`目录下。
-
-**step4.** 删除旧版本的mtool的工作目录`$old_mtool`。
-
-### 2.3 安装 MTool
-
-MTool 是一个命令行版本的节点管理工具，可以方便地发起质押等交易，MTool对质押等交易提供两种签名方式：在线签名和离线签名。
-
-- 在线签名相对比较方便，本文档主要介绍在线签名操作过程
-- 对安全性要求比较高的用户可以参考[离线MTool使用手册.md](./离线MTool使用手册.md)使用离线签名。
-
-另外，本文档分别介绍 Windows 和Ubuntu环境下的MTool操作，用户可根据自己的资源进行选择；如果下载脚本失败，请设置DNS 服务器为8.8.8.8。
-
-#### 2.3.1  Windows下安装MTool
+### Windows下安装MTool
 
 步骤如下：
 
-**step1.**  在[安装前准备](#22-安装前准备)步骤调出的管理员：powershell 窗口中，复制以下2条命令执行。
+- 下载MTool安装包
 
-```bash
-$env:chocolateyUseWindowsCompression = 'true'
-Set-ExecutionPolicy -ExecutionPolicy Bypass
-```
+  在在线机器上，复制链接<https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/mtool/mtool-setup/0.8.0.0/mtool-setup.exe>或者 <http://47.91.153.183/mtool/mtool-setup/0.8.0.0/mtool-setup.exe> 到浏览器下载MTool安装包。
 
-提示：
+- 安装MTool
 
-```plain
-执行策略更改
-执行策略可帮助你防止执行不信任的脚本。更改执行策略可能会产生安全风险，如 https:/go.microsoft.com/fwlink/?LinkID=135170 中的 about_Execution_Policies 帮助主题所述。是否要更改执行策略?
-[Y] 是(Y)  [A] 全是(A)  [N] 否(N)  [L] 全否(L)  [S] 暂停(S)  [?] 帮助 (默认值为“N”):
-```
+  双击mtool-setup.exe进行安装。默认安装目录为 C:\tools，建议不要更改此安装目录。弹出界面显示**Completing the mtool Setup Wizard**信息表示安装成功，点击**Finish**即可。
 
-请输入：y，并按回车键结束。
-
-**step2.** 浏览器复制链接 <https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/opensource/scripts/mtool_install.bat> 或者 <http://47.91.153.183/opensource/scripts/mtool_install.bat> 下载脚本
-
-**step3.** 鼠标右键点击 mtool_install.bat， 选择以管理员身份运行
-
-> 注意
->
-> - 提示 `Please enter the version number of MTool:` 时，请输入安装MTool的版本号，具体参考公告发布的MTool的版本号。
->
-> - 提示 `install MTool success` 时，表示 MTool 安装成功，未安装成功时，请通过我们的官方客户联系方式反馈具体问题。
-> - 提示 `请按任意键继续. . .` 时，请输入回车键关闭当前 cmd 窗口。
-
-#### 2.3.2  Ubuntu下安装MTool
+### Ubuntu下安装MTool
 
 步骤如下：
 
-**step1.** 下载mtool工具包：(实际mtool版本的链接地址需从公告获取)
+**step1.** 下载mtool工具包
 
 ``` bash
-wget https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/mtool/0.9.0.X/mtool-all.zip
+wget https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/mtool/0.8.0.0/mtool-client.zip
 ```
 
 或者
 
 ``` bash
-wget http://47.91.153.183/mtool/0.9.0.X/mtool-all.zip
+wget http://47.91.153.183/mtool/0.8.0.0/mtool-client.zip
 ```
-
->其中0.9.0.X为mtool的版本号，实际版本号需从公告获取。
 
 **step2.** 解压mtool工具包
 
 ``` bash
-unzip mtool-all.zip && cd mtool-all
+unzip mtool-client.zip && cd mtool-client
 ```
 
 **step3.** 下载脚本
 
-**注意：脚本下载到mtool_all目录下，否则脚本无法找到新版本mtool的路径；**
+>[!NOTE|style:flat|label:注意]
+>
+>脚本下载到<font color=red>mtool-client</font> 目录下，否则脚本无法找到新版本mtool的路径。
 
 ``` bash
 wget https://7w6qnuo9se.s3.eu-central-1.amazonaws.com/opensource/scripts/mtool_install.sh
@@ -355,10 +274,12 @@ wget http://47.91.153.183/opensource/scripts/mtool_install.sh
 chmod +x mtool_install.sh && ./mtool_install.sh
 ```
 
-> 注意：
+> [!NOTE|style:flat|label:注意]
 >
-> - 提示 `Install mtool succeed.` 时，表示 MTool 安装成功，未安装成功时，请通过我们的官方客户联系方式反馈具体问题。
-> - 安装完成之后，需要**`重启终端`**，让新添加的环境变量生效。
+> - 提示 <font color=red>Install mtool succeed.</font> 时，表示 MTool 安装成功，未安装成功时，请通过我们的官方客服联系方式反馈具体问题。
+> - 安装完成之后，需要<font color=red>重启终端</font>，让新添加的环境变量生效。
+
+
 
 ### 2.4 创建钱包
 
